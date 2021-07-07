@@ -1,0 +1,60 @@
+.btn,
+.form-control,
+.custom-select,
+.input-group-text {
+  border-radius: 0px;
+}
+.form-control:focus,
+.custom-select:focus {
+  border-color: #00b050;
+  box-shadow: 0 0 0 0.2rem rgb(0 176 80 / 25%);
+}
+.row-search {
+  padding-top: 10px;
+}
+table {
+  width: 100%;
+}
+thead {
+  color: #00b050;
+}
+.student-all-check {
+  height: 100%;
+  margin-top: 17px;
+}
+
+.ys-form-field {
+  width: 100%;
+}
+.row:first-child {
+  margin-top: 20px;
+}
+
+.ys-btn-add {
+  margin-bottom: 10px;
+}
+
+.ys-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ys-table-container {
+  position: relative;
+}
+.ys-rate-limit-reached {
+  max-width: 360px;
+  text-align: center;
+}
+th.mat-header-cell {
+  font-size: 16px;
+  font-weight: bold;
+}

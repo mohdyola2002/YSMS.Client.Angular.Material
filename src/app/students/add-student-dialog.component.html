@@ -1,0 +1,230 @@
+<form [formGroup]="studentForm" (ngSubmit)="registerStudent()">
+    <h2 mat-dialog-title align="center">Register Student</h2>
+    <mat-dialog-content class="mat-typography" align="center">
+        <div class="row">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>RegNo.:</mat-label>
+                <input matInput formControlName="regNo" type="text" placeholder="AMS/--/----">
+                <mat-error>
+                    RegNo is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <div class="col-md-4 pe-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>First Name:</mat-label>
+                    <input matInput formControlName="firstName" type="text" placeholder="First Name">
+                    <mat-error>
+                        First name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 px-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Second Name</mat-label>
+                    <input matInput formControlName="secondName" type="text" placeholder="Second Name">
+                    <mat-error>
+                        Second name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 ps-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" type="text" placeholder="Last Name">
+                    <mat-error>
+                        Last name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center pb-3">
+                <label>Gender: </label>
+                <mat-radio-group formControlName="gender" class="flex-grow-1 d-flex justify-content-around">
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Date Of Birth</mat-label>
+                    <input matInput formControlName="dateOfBirth" [matDatepicker]="dob" placeholder="Date of Birth">
+                    <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                    <mat-datepicker #dob></mat-datepicker>
+                    <mat-error
+                        *ngIf="!studentForm.get('dateOfBirth')?.errors?.matDatepickerParse && studentForm.get('dateOfBirth')?.errors?.required">
+                        Date of Birth is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="studentForm.get('dateOfBirth')?.errors?.matDatepickerParse">
+                        Date of Birth is <strong>Invalid</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 pe-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Local Govt</mat-label>
+                    <input matInput formControlName="lga" type="text" placeholder="Local Govt">
+                    <mat-error>
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 px-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>State of Origin</mat-label>
+                    <input matInput formControlName="stateOfOrigin" type="text" placeholder="State">
+                    <mat-error>
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 ps-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Nationality</mat-label>
+                    <input matInput formControlName="nationality" type="text" placeholder="Nationality">
+                    <mat-error>
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput formControlName="address" rows="3"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" formGroupName="emailGroup">
+            <div class="col-md-6 pe-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email" placeholder="Email">
+                    <mat-error *ngIf="studentForm.get('emailGroup.email')?.errors?.required">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="studentForm.get('emailGroup.email')?.errors?.email">
+                        Enter a valid <strong>email address</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 ps-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Confirm Email</mat-label>
+                    <input matInput [errorStateMatcher]="matcher" formControlName="confirmEmail" type="email"
+                        placeholder="Email">
+                    <mat-error *ngIf="studentForm.get('emailGroup.confirmEmail')?.errors?.required">
+                        Comfirm your <strong>email</strong>
+                    </mat-error>
+                    <mat-error *ngIf="studentForm.get('emailGroup')?.errors?.match">
+                        Email don't <strong>match</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" formGroupName="passwordGroup">
+            <div class="col-md-6 pe-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password"
+                        [type]="hide ? 'password' : 'text'" placeholder="Email">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="studentForm.get('passwordGroup.password')?.errors?.required">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="studentForm.get('passwordGroup.password')?.errors?.minlength">
+                        Password must be atleast <strong>6 characters</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 ps-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput [errorStateMatcher]="matcher" formControlName="confirmPassword" [type]="hide ? 'password' : 'text'"
+                        placeholder="Password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="studentForm.get('passwordGroup.confirmPassword')?.errors?.required">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="studentForm.get('passwordGroup.confirmPassword')?.errors?.match">
+                        Password don't <strong>match</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 pe-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Father</mat-label>
+                    <mat-select formControlName="fatherId">
+                        <mat-option value="1">Abdulkadir Ahmad Yola</mat-option>
+                        <mat-option value="2">Abdulkadir Baba</mat-option>
+                        <mat-option value="5">Salihu Abdullahi Hari</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 ps-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Mother</mat-label>
+                    <mat-select formControlName="motherId">
+                        <mat-option value="1">Hussaina Umar Khalil</mat-option>
+                        <mat-option value="4">Fatima Hanga</mat-option>
+                        <mat-option value="6">Zainab Tangaza</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 pe-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Date Of Admission</mat-label>
+                    <input matInput formControlName="dateOfAdmission" [matDatepicker]="doa"
+                        placeholder="Date Of Admission">
+                    <mat-error>
+                        Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="doa"></mat-datepicker-toggle>
+                    <mat-datepicker #doa></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 px-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Session</mat-label>
+                    <mat-select formControlName="sessionAdmitted">
+                        <mat-option value="2017-2018">2017/2018</mat-option>
+                        <mat-option value="2018-2019">2018/2019</mat-option>
+                        <mat-option value="2019-2020">2019/2020</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 ps-md-0">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Class</mat-label>
+                    <mat-select formControlName="class">
+                        <mat-option value="ss3a">SS3A</mat-option>
+                        <mat-option value="ss3b">SS3B</mat-option>
+                        <mat-option value="ss3c">SS3C</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-flat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button [style.cursor]="studentForm.valid ? 'pointer' : 'not-allowed'"
+            [matTooltip]="studentForm.valid ? 'Click to Register Student' : 'Fill the * fields'" color="primary"
+            type="submit" formaction="">REGISTER</button>
+    </mat-dialog-actions>
+</form>
+<!-- [disabled]="!studentForm.valid" -->

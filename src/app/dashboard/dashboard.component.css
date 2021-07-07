@@ -1,0 +1,20 @@
+.chart mat-icon {
+    font-size: 35px;
+}
+.container {
+    padding-top: 10px;
+}
+.card {
+    border-radius: 0px;
+    width: 183px;
+}
+.card:hover .card-title {
+    /* transform: scale(1.2); */
+    color: red;
+}
+/* .card-title {
+    transition: transform 1s ease 0s;
+} */
+.card:hover mat-icon {
+    color: #00B050;
+}

@@ -1,0 +1,195 @@
+.ys-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.ys-is-mobile .ys-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+h1.ys-app-name {
+  margin-left: 8px;
+}
+
+.ys-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.ys-is-mobile .ys-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+
+
+
+.ys-user-pic-thumbnail {
+  background-color: #ccc;
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  border-radius: 15px;
+  /* border: 1px solid white; */
+  
+}
+.ys-user-pic {
+  background-color: #ccc;
+  width: 30px;
+  height: 30px;
+  margin-top: -8px;
+  border-radius: 15px;  
+}
+.username {
+  font-size: 16px;
+  padding: 5px;
+}
+.main {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+  /* background-color: #D4E9D4; */
+}
+
+
+.logo {
+  height: 50px;
+  width: 200px;
+  padding: 5px;
+  margin: 0px auto 0px auto;
+  background-image: url("../assets/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-origin: content-box;
+  /* border: 1px solid silver; */
+}
+.logo-sm {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  margin: 0px auto 0px auto;
+  background-image: url("../assets/logo-sm.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-origin: content-box;
+}
+.logo > img, .logo-sm > img {
+    height: 100%;
+    width: auto;
+}
+.ys-navbar-brand {
+  /* margin-bottom: 10px; */
+  display: flex;
+}
+.ys-navbar-brand h1 {
+  margin: 0px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 24px;
+  font-weight: bolder;
+  line-height: 1.5em;
+}
+.ys-nav-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.nav-item {
+  height: 40px;
+  transition: background-color 0.5s ease 0s;
+}
+.active {
+  border-left-color: #00B050 !important;
+  background-color: #ccc4;
+  /* transition: background-color 3s ease-out 0s;
+  transition: border-left-color 3s ease-out 0s; */
+}
+/* .active a {
+  padding-left: 20px;
+} */
+.nav-item:hover {
+  background-color: #ccc4;
+  /* border: 1px solid silver; */
+}
+.active p {
+  color: #00B050;
+  font-weight: bold;
+}
+.active mat-icon {
+  color: red;
+}
+/* .nav-item:active,
+.nav-link:active {
+  background-color: rgb(192, 192, 192, 0.9);
+} */
+.nav-link {
+  text-decoration: none;
+  /* color: green; */
+  color: #494949;
+  /* padding: 0px 15px 0px 17px; */
+  /* padding-right: 50px !important; */
+  border-left: 5px solid transparent;
+  font-size: 16px;
+  display: flex;
+  line-height: 2.5em;
+}
+.nav-link mat-icon {
+  margin-right: 24px;
+}
+.nav-link p {
+  margin: auto 5px;
+  display: inline;
+}
+.left-wrapper {
+  width: 100%;
+  background-color: #fff;
+  color: #4e4e4e;
+  margin: 56px 0px 0px 0px;
+  border-top: 1px solid #d4d4d4;
+  padding: 16px;
+  transition: margin 1s ease 0s;
+  z-index: 9;
+}
+
+.container {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 5px;
+}
+.ys-spacer {
+  flex: 1;
+}
+#footer {
+  /* background-color: rgb(32, 32, 32); */
+  /* height: 50px; */
+  color: gray;
+  line-height: 1.5em;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  /* padding: 7px 7px 0px 7px; */
+  border-top: 1px solid gray;
+}
+#copyright {
+  padding: 16px 24px;
+}
+
+@media (min-width: 992px) {
+  .ys-sidebar {
+    min-width: 240px;
+    /* position: absolute; */
+  }
+  .left-wrapper {
+    margin: 56px 0px 0px 240px;
+  }
+}
