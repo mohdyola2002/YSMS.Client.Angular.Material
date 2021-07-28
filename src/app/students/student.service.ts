@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap} from 'rxjs/operators';
@@ -41,10 +41,18 @@ export class StudentService {
       );
   }
 
-  createStudent(student: IStudent): Observable<HttpResponse<IStudent>> {
-    const myheaders = new HttpHeaders({ 'Content-Type': 'application/json'})
-    return this.http.post<HttpResponse<IStudent>>(`${this.rootUrl}students`, student, { headers: myheaders }).pipe(
+  createStudent(student: IStudent): Observable<IStudent> {
+    const myheaders = new HttpHeaders({ 'Content-Type': 'application/json'});
+    return this.http.post<IStudent>(`${this.rootUrl}students`, student, { headers: myheaders }).pipe(
       tap(data => console.log('Created Student: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  insertStudentToClass(session: string, className: string, regNos: string[]): Observable<IStudents> {
+    const myheaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<IStudents>(`${this.rootUrl}/${session}/${className}`, regNos, { headers: myheaders }).pipe(
+      tap(data => console.log('Students In class: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -55,7 +63,7 @@ export class StudentService {
     if (err.error instanceof ErrorEvent) {
       errorMessage = `An error occured: ${err.error.message}`;
     } else {
-      errorMessage = `Server returned code ${err.status}, error message is ${err.message}`;
+      errorMessage = `Server returned code ${err.status}, error message is ${err.error.message}`;
     }
     console.error(errorMessage);
     return throwError(errorMessage);

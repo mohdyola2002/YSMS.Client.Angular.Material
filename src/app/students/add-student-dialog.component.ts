@@ -10,8 +10,8 @@ import {
 } from '@angular/forms';
 import { StudentService } from './student.service';
 import { IStudent } from './student';
-import { map } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+import swal from 'sweetalert2';
+import { HttpResponse } from '@angular/common/http';
 
 function inputMatcher(control1: string, control2: string): ValidatorFn {
   return (c: AbstractControl): { [key: string]: boolean } | null => {
@@ -43,7 +43,7 @@ export class AddStudentDialogComponent implements OnInit {
     this.studentForm = this.fb.group({
       regNo: ['', Validators.required],
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
-      secondName: ['', [Validators.required, Validators.maxLength(50)]],
+      secondName: ['', [Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       gender: ['male', Validators.required],
       dateOfBirth: ['', Validators.required],
@@ -72,6 +72,7 @@ export class AddStudentDialogComponent implements OnInit {
       class: ['', Validators.required],
     });
     console.log(this.studentForm);
+    
   }
 
   registerStudent(): void {
@@ -97,15 +98,80 @@ export class AddStudentDialogComponent implements OnInit {
           motherId: this.studentForm.value.motherId,
           password: this.studentForm.value.passwordGroup.password,
         }
+        this.studentForm.disable();
         this.studentService.createStudent(this.student).subscribe(
           (data) => console.log(JSON.stringify(data)),
-          (error: Response) => console.log(`Error: ${error}`),
-          () => console.log("Completed")
-        )
+          (error: any) => {
+            swal.fire({
+              title: 'Registration Failed',
+              text: `Error: ${error}`,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: 'red',
+              // backdrop: false
+            });
+            this.studentForm.markAsPending();
+          },
+          () => {
+            swal.fire({
+              title: 'Registration Successful',
+              text: `Student with Registration No.: ${this.student.regNo} registered successfully.`,
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: '#00b050',
+              // backdrop: false
+            });
+            this.addStudentToClass(this.studentForm.get('sessionAdmitted')?.value, this.studentForm.get('class')?.value, [this.studentForm.get('regNo')?.value])
+          } 
+        );
       }
     } else {
     }
     console.log(this.studentForm);
     console.log(this.studentForm.value);
+    // swal.fire({
+    //   title: 'Are you sure?',
+    //   text: 'You will not be able to recover this imaginary file!',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Yes, delete it!',
+    //   cancelButtonText: 'No, keep it',
+    // }).then(
+    //   () => {
+    //     swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+    //   },
+    //   (dismiss) => {
+    //     // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+    //     // if (dismiss === 'cancel') {
+    //       swal.fire('Deleted!', 'Your imaginary file has been deleted.', 'success');
+    //     // }
+    //   }
+    // );
+  }
+
+  addStudentToClass(session: string, className: string, regNos: string[]): void {
+    this.studentService
+      .insertStudentToClass(session, className, regNos)
+      .subscribe(
+        (data) => console.log(JSON.stringify(data)),
+        (error: any) =>
+          swal.fire({
+            title: 'Student(s) not added to class!',
+            text: `Error: ${error}`,
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: 'red',
+            // backdrop: false
+          }),
+        () =>
+          swal.fire({
+            title: 'Student(s) added to class successfully',
+            text: `Student addition to class ${className} session ${session} successful.`,
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#00b050',
+            // backdrop: false,
+          })
+      );
   }
 }

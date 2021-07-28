@@ -40,6 +40,9 @@ export class AppComponent implements OnDestroy {
       case 'students':
         activeNav = document.querySelector('#studentLink');
         break;
+      case 'exam':
+        activeNav = document.querySelector('#examLink');
+        break;
       default:
         break;
     }

@@ -69,7 +69,7 @@
                     <mat-label>Local Govt</mat-label>
                     <input matInput formControlName="lga" type="text" placeholder="Local Govt">
                     <mat-error>
-                        Email is <strong>required</strong>
+                        LGA is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -78,7 +78,7 @@
                     <mat-label>State of Origin</mat-label>
                     <input matInput formControlName="stateOfOrigin" type="text" placeholder="State">
                     <mat-error>
-                        Email is <strong>required</strong>
+                        State of origin is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -87,7 +87,7 @@
                     <mat-label>Nationality</mat-label>
                     <input matInput formControlName="nationality" type="text" placeholder="Nationality">
                     <mat-error>
-                        Email is <strong>required</strong>
+                        Nationality is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -97,6 +97,9 @@
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Address</mat-label>
                     <textarea matInput formControlName="address" rows="3"></textarea>
+                    <mat-error>
+                        Address is <strong>required</strong>
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -121,7 +124,7 @@
                     <mat-error *ngIf="studentForm.get('emailGroup.confirmEmail')?.errors?.required">
                         Comfirm your <strong>email</strong>
                     </mat-error>
-                    <mat-error *ngIf="studentForm.get('emailGroup')?.errors?.match">
+                    <mat-error *ngIf="studentForm.get('emailGroup')?.errors?.match && studentForm.get('emailGroup.confirmEmail')?.value != ''">
                         Email don't <strong>match</strong>
                     </mat-error>
                 </mat-form-field>
@@ -155,9 +158,9 @@
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                     <mat-error *ngIf="studentForm.get('passwordGroup.confirmPassword')?.errors?.required">
-                        Password is <strong>required</strong>
+                        Confirm your <strong>password</strong>
                     </mat-error>
-                    <mat-error *ngIf="studentForm.get('passwordGroup.confirmPassword')?.errors?.match">
+                    <mat-error *ngIf="studentForm.get('passwordGroup')?.errors?.match && studentForm.get('passwordGroup.confirmPassword')?.value != ''">
                         Password don't <strong>match</strong>
                     </mat-error>
                 </mat-form-field>
@@ -224,7 +227,7 @@
         <button mat-flat-button mat-dialog-close>Cancel</button>
         <button mat-raised-button [style.cursor]="studentForm.valid ? 'pointer' : 'not-allowed'"
             [matTooltip]="studentForm.valid ? 'Click to Register Student' : 'Fill the * fields'" color="primary"
-            type="submit" formaction="">REGISTER</button>
+            type="submit">REGISTER</button>
     </mat-dialog-actions>
 </form>
 <!-- [disabled]="!studentForm.valid" -->

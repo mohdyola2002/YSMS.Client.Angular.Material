@@ -18,12 +18,12 @@
     <button mat-icon-button>
       <mat-icon class="material-icons-sharp">notifications</mat-icon>
     </button>
-    <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
       <div class="ys-user-pic-thumbnail">
         <img class="ys-user-pic" src="../assets/user.png" alt="User">
       </div>
     </button>
-    <mat-menu #beforeMenu="matMenu" xPosition="before">
+    <mat-menu #userMenu="matMenu" xPosition="before" class="rounded-0 border mat-elevation-z15" style="border-color: #e0e0e0;">
       <button mat-menu-item>Item 1</button>
       <button mat-menu-item>Item 2</button>
     </mat-menu>
@@ -44,7 +44,7 @@
           <mat-icon aria-hidden="false" aria-label="menu icon" class="material-icons-sharp">work</mat-icon>
           <p>Teacher</p>
         </a>
-        <a mat-list-item href="#" class="nav-link" id="studentLink">
+        <a mat-list-item [routerLink]="['/exam']" class="nav-link" id="examLink">
           <mat-icon aria-hidden="false" aria-label="menu icon" class="material-icons-sharp">assessment</mat-icon>
           <p>Examination</p>
         </a>

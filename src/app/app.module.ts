@@ -24,8 +24,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { StudentListComponent } from './students/student-list.component';
 import { ConvertToACharPipe } from './shared/convert-to-a-char.pipe';
 import { AddStudentDialogComponent } from './students/add-student-dialog.component';
+import { ScoreSheetComponent } from './exam/score-sheet.component';
 
 @NgModule({
   declarations: [
@@ -41,12 +42,14 @@ import { AddStudentDialogComponent } from './students/add-student-dialog.compone
     StudentListComponent,
     ConvertToACharPipe,
     AddStudentDialogComponent,
+    ScoreSheetComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
+      { path: 'exam', component: ScoreSheetComponent },
       { path: 'students', component: StudentListComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -55,6 +58,7 @@ import { AddStudentDialogComponent } from './students/add-student-dialog.compone
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatExpansionModule,
     MatRadioModule,
     MatSliderModule,
     MatDialogModule,
